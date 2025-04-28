@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marathi Puppy Rescue POC</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Ensure Devanagari font is available -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400..800&family=Noto+Sans+Devanagari:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body class="jungle-theme">
+
+    <div class="container">
+        <h1>Marathi Puppy Rescue! <img id="puppy-icon" src="assets\images\NiaEd-.png" alt="Puppy Icon" width="40"></h1>
+        <p>Help the puppy by typing the correct Marathi words!</p>
+
+        <div id="game-area">
+            <div id="challenge-section">
+                <p>
+                    Listen and type the character:
+                    <button id="repeat-sound-button" title="Repeat Sound">🔊</button>
+                </p>
+                <!-- Character display will be hidden via CSS -->
+                <div id="challenge-display" class="marathi-text"></div>
+            </div>
+
+            <div id="input-section">
+                <input type="text" id="user-input" placeholder="Type here...">
+                <button id="submit-button">Check Answer</button>
+            </div>
+
+            <div id="virtual-keyboard">
+                <!-- Marathi keyboard buttons will be generated here by JavaScript -->
+            </div>
+
+            <div id="feedback-section">
+                <p id="feedback-text"></p>
+                <div id="emoji-display"></div> <!-- New element for emoji -->
+            </div>
+
+            <div id="visual-section">
+                <div id="puppy-cage" class="cage-locked">
+                    <span id="cage-state-text">Locked</span>
+                    <!-- Puppy images - visibility controlled by CSS -->
+                    <img src="assets/images/puppy-sad.gif" alt="Sad Puppy" id="puppy-sad" class="puppy-image">
+                    <img src="assets/images/puppy-happy.gif" alt="Happy Puppy" id="puppy-happy" class="puppy-image">
+                </div>
+                <button id="next-button" style="display: none;">Next Puppy</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
