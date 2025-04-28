@@ -1,12 +1,13 @@
 body {
     font-family: 'Baloo 2', cursive; /* Playful font */
     margin: 0;
-    padding: 20px;
+    padding: 10px; /* Reduce padding slightly for smaller screens */
     display: flex;
     justify-content: center;
     align-items: flex-start; /* Align container to top */
     min-height: 100vh;
     color: #333; /* Default text color */
+    -webkit-tap-highlight-color: transparent; /* Remove tap highlight on touch devices */
 }
 
 body.jungle-theme {
@@ -17,11 +18,11 @@ body.jungle-theme {
 
 .container {
     background-color: rgba(255, 255, 255, 0.6); /* Less transparent white for readability */
-    padding: 30px;
+    padding: 15px; /* Reduce padding */
     border-radius: 15px;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2); /* Softer shadow */
     text-align: center;
-    max-width: 800px; /* Limit width */
+    max-width: 95%; /* Allow container to be wider on tablets */
     width: 90%;
     border: 1px solid rgba(54, 69, 79, 0.2); /* Subtle border */
 }
@@ -29,7 +30,7 @@ body.jungle-theme {
 h1 {
     color: #D2691E; /* Chocolate/Brown color for title */
     margin-bottom: 10px;
-    font-size: 2.5em;
+    font-size: 2em; /* Slightly smaller title */
     display: flex; /* Align icon with text */
     align-items: center;
     justify-content: center;
@@ -39,7 +40,7 @@ h1 {
 /* Style for the level name display */
 #level-name {
     color: #8B4513; /* Saddle Brown */
-    font-size: 1.5em;
+    font-size: 1.3em; /* Slightly smaller */
     margin-top: 0; /* Adjusted margin */
     margin-bottom: 15px;
     text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
@@ -78,7 +79,7 @@ p {
 
 #game-area {
     background-color: rgba(245, 245, 220, 0.5); /* Beige transparent */
-    padding: 20px;
+    padding: 15px; /* Adjust padding */
     border-radius: 10px; /* Consistent rounding */
     margin-top: 20px;
     text-align: center;
@@ -104,12 +105,12 @@ p {
     margin-bottom: 5px; /* Space between text and emoji */
     min-height: 1.5em; /* Prevent layout shift */
     font-weight: bold;
-    font-size: 1.2em;
+    font-size: 1.1em; /* Adjust font size */
     color: inherit; /* Inherit color from parent */
 }
 
 #emoji-display {
-    font-size: 3em; /* Make emoji large */
+    font-size: 2.8em; /* Adjust font size */
     line-height: 1;
     margin-top: 5px;
     min-height: 1em; /* Reserve space */
@@ -132,7 +133,7 @@ p {
 }
 
 #challenge-section p {
-    font-size: 1.4em; /* Slightly larger */
+    font-size: 1.2em; /* Adjust font size */
     margin-bottom: 10px;
     color: #2E8B57; /* Sea Green */
     font-weight: bold;
@@ -145,7 +146,7 @@ p {
 }
 
 #challenge-display {
-    font-size: 4em;
+    font-size: 3.5em; /* Adjust size */
     font-family: 'Noto Sans Devanagari', sans-serif;
     margin-bottom: 20px;
     color: #36454F; /* Dark text color */
@@ -160,10 +161,10 @@ p {
 #repeat-sound-button {
     background: none;
     border: none;
-    font-size: 1.5em; /* Make speaker icon larger */
+    font-size: 1.8em; /* Make speaker icon larger for touch */
     color: #D2691E; /* Chocolate/Brown */
     cursor: pointer;
-    padding: 0 5px;
+    padding: 5px; /* Add padding */
     vertical-align: middle;
     transition: transform 0.2s ease;
 }
@@ -180,7 +181,7 @@ p {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 10px;
+    gap: 8px; /* Adjust gap */
     margin-bottom: 25px;
 }
 
@@ -197,8 +198,8 @@ p {
 }
 
 #submit-button {
-    padding: 12px 25px;
-    font-size: 1.2em;
+    padding: 15px 30px; /* Increase padding */
+    font-size: 1.3em; /* Larger font */
     font-weight: bold;
     background-color: #FF7F50; /* Coral */
     color: white;
@@ -219,13 +220,13 @@ p {
 }
 
 #user-input {
-    padding: 12px 15px;
-    font-size: 1.1em;
+    padding: 15px; /* Increase padding for touch */
+    font-size: 1.2em; /* Larger font */
     border: 2px solid #8FBC8F; /* Dark Sea Green border */
     border-radius: 20px; /* Rounded corners */
     background-color: #fff;
     color: #36454F; /* Dark text */
-    width: clamp(200px, 60%, 400px); /* Responsive width */
+    width: clamp(180px, 50%, 350px); /* Adjust width constraints */
     font-family: 'Noto Sans Devanagari', sans-serif; /* Font for input */
     margin-right: 0; /* Remove margin if set previously */
 }
@@ -261,26 +262,26 @@ button:hover {
 
 #puppy-cage {
     border: 3px solid #A0522D; /* Sienna border */
-    padding: 20px;
+    padding: 15px; /* Adjust padding */
     display: inline-block;
     border-radius: 5px;
     background-color: rgba(210, 180, 140, 0.4); /* Tan transparent */
     position: relative;
     transition: background-color 0.5s ease, border-color 0.5s ease; /* Smooth transition */
-    min-height: 100px; /* Ensure space for the puppy image */
+    min-height: 120px; /* Slightly taller */
     display: flex; /* Use flexbox for alignment */
     flex-direction: column; /* Stack elements vertically */
     align-items: center; /* Center items horizontally */
     justify-content: center; /* Center items vertically */
-    padding-top: 30px; /* Add padding to make space for text */
+    padding-top: 35px; /* Ensure space for text */
 }
 
 .puppy-image {
-    width: 80px; /* Adjust size as needed */
+    width: 70px; /* Adjust size if needed */
     height: auto;
     margin-top: 10px; /* Space between text and puppy */
     position: absolute; /* Position images within the cage */
-    bottom: 15px; /* Position near the bottom */
+    bottom: 10px; /* Adjust position */
     left: 50%;
     transform: translateX(-50%); /* Center horizontally */
 }
@@ -339,18 +340,17 @@ button:hover {
     background-color: rgba(85,107,47,0.7); /* Dark Olive Green background */
     color: white;
     padding: 2px 5px;
-    font-size: 0.8em;
+    font-size: 0.9em; /* Adjust font size */
     border-radius: 3px;
     display: block; /* Ensure text is on its own line */
     margin-bottom: 10px;
     font-weight: bold;
 }
 
-#next-button {
-    margin-top: 10px;
-    background-color: #90EE90; /* Light Green */
-    padding: 10px 20px;
-    font-size: 1.1em;
+#next-button,
+#skip-button { /* Apply similar styles to both */
+    padding: 12px 25px;
+    font-size: 1.2em;
     font-weight: bold;
     color: #36454F; /* Dark text */
     border: none;
@@ -359,26 +359,42 @@ button:hover {
     transition: transform 0.2s ease, background-color 0.2s ease;
     font-family: 'Baloo 2', cursive;
     margin-top: 15px; /* Add some space above */
+    margin-left: 5px; /* Add space between buttons if needed */
+    margin-right: 5px;
 }
 
+#next-button {
+    background-color: #90EE90; /* Light Green */
+}
 #next-button:hover {
     background-color: #7CFC00; /* Lawn Green */
     transform: scale(1.05);
 }
-
 #next-button:active {
+    transform: scale(0.98);
+}
+
+#skip-button {
+    background-color: #FFD700; /* Gold */
+    display: none; /* Hidden by default, shown via JS */
+}
+#skip-button:hover {
+    background-color: #FFC700; /* Darker Gold */
+    transform: scale(1.05);
+}
+#skip-button:active {
     transform: scale(0.98);
 }
 
 #virtual-keyboard {
     margin-top: 20px;
-    padding: 15px;
+    padding: 10px; /* Adjust padding */
     border: 1px solid red; /* TEMPORARY: Add red border for visibility check */
     border-radius: 10px;
     background-color: rgba(139, 69, 19, 0.3); /* Lighter brown background */
     display: flex;
     flex-wrap: wrap;
-    gap: 8px;
+    gap: 6px; /* Adjust gap */
     justify-content: center;
     min-height: 50px;
     position: relative; /* Ensure positioning context */
@@ -390,15 +406,16 @@ button:hover {
 }
 
 #virtual-keyboard button {
-    padding: 10px 15px;
-    font-size: 1.3em; /* Make characters larger */
+    padding: 12px 10px; /* Increase padding */
+    font-size: 1.4em; /* Larger characters */
     font-family: 'Noto Sans Devanagari', sans-serif; /* Ensure Devanagari font */
     cursor: pointer;
     border: none; /* Remove border */
     background-color: #ADD8E6; /* Light Blue */
     color: #191970; /* Midnight Blue text */
-    border-radius: 8px; /* Rounded corners */
-    min-width: 45px;
+    border-radius: 10px; /* More rounded */
+    min-width: 48px; /* Ensure minimum tap area */
+    min-height: 48px; /* Ensure minimum tap area */
     text-align: center;
     transition: transform 0.1s ease, background-color 0.2s ease;
     box-shadow: 0 2px 4px rgba(0,0,0,0.2);
@@ -433,7 +450,7 @@ button:hover {
 /* Navigation Styles */
 #level-navigation {
     background-color: rgba(139, 69, 19, 0.1); /* Light brown transparent background */
-    padding: 15px;
+    padding: 10px; /* Adjust padding */
     border-radius: 10px;
     margin-bottom: 20px;
     text-align: center;
@@ -447,8 +464,8 @@ button:hover {
 }
 
 .level-button {
-    padding: 8px 15px;
-    font-size: 0.9em;
+    padding: 10px 18px; /* Increase padding for easier tapping */
+    font-size: 1em; /* Ensure readable font size */
     font-weight: bold;
     background-color: #5F9EA0; /* Cadet Blue */
     color: white;
@@ -457,7 +474,7 @@ button:hover {
     cursor: pointer;
     transition: transform 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
     font-family: 'Baloo 2', cursive;
-    margin: 5px;
+    margin: 5px 4px;
     box-shadow: 0 2px 4px rgba(0,0,0,0.2);
 }
 
@@ -486,4 +503,71 @@ button:hover {
 @keyframes happyJump {
     0%, 100% { transform: translateX(-50%) translateY(0); }
     50% { transform: translateX(-50%) translateY(-10px); } /* Jump up */
+}
+
+/* Media Query for smaller tablets or portrait mode */
+@media (max-width: 768px) {
+    h1 {
+        font-size: 1.8em;
+    }
+    #level-name {
+        font-size: 1.2em;
+    }
+    .level-button {
+        padding: 8px 12px;
+        font-size: 0.9em;
+    }
+    #user-input {
+         width: clamp(150px, 60%, 300px);
+         font-size: 1.1em;
+         padding: 12px;
+    }
+    #submit-button {
+        padding: 12px 20px;
+        font-size: 1.1em;
+    }
+     #virtual-keyboard button {
+        padding: 10px 8px;
+        font-size: 1.2em;
+        min-width: 40px;
+        min-height: 40px;
+    }
+    #challenge-display {
+        font-size: 3em;
+    }
+}
+
+/* Media Query for phone sizes (optional, for further refinement) */
+@media (max-width: 480px) {
+    body {
+        padding: 5px;
+    }
+    .container {
+        padding: 10px;
+    }
+    h1 {
+        font-size: 1.6em;
+        gap: 5px;
+    }
+    #puppy-icon {
+        width: 30px;
+    }
+    #level-navigation {
+        padding: 5px;
+    }
+    .level-button {
+        padding: 6px 10px;
+        font-size: 0.8em;
+        margin: 3px;
+    }
+     #virtual-keyboard button {
+        padding: 8px 6px;
+        font-size: 1.1em;
+        min-width: 35px;
+        min-height: 35px;
+        gap: 4px;
+    }
+     #user-input {
+         width: clamp(120px, 70%, 250px);
+    }
 }

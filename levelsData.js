@@ -60,7 +60,7 @@ export const characterExamples = {
     'औ': { emoji: '💊', word: 'औषध', english: 'Medicine' },
 
     // Level 2 Consonants (Part 1: क to म)
-    'क': { emoji: '🪁', word: 'कमळ', english: 'Lotus' },
+    'क': { emoji: '🪁', word: 'कमळ', english: 'Lotus' /*, audioSrc: 'assets/audio/Ka.mp3' */ }, // Example if 'क' needs audio
     'ख': { emoji: '🪟', word: 'खिडकी', english: 'Window' },
     'ग': { emoji: '🐘', word: 'गणपती', english: 'Ganapati' },
     'घ': { emoji: '🔔', word: 'घंटा', english: 'Bell' },
@@ -70,8 +70,19 @@ export const characterExamples = {
     'ज': { emoji: '🚢', word: 'जहाज', english: 'Ship' },
     'झ': { emoji: '🌳', word: 'झाड', english: 'Tree' },
     'ञ': { emoji: '❓', word: 'ज्ञान', english: 'Knowledge' },
-    'ट': { emoji: '🍅', word: 'टोमॅटो', english: 'Tomato' },
-    'ठ': { emoji: '🔨', word: 'ठसा', english: 'Stamp/Impression' },
+    'ट': {
+        emoji: '🍅',
+        word: 'टोमॅटो',
+        english: 'Tomato',
+        audioSrc: 'assets/audio/Ta.mp3' // Path to the pre-recorded audio for 'ट'
+        // You might also have audio for the word: wordAudioSrc: 'assets/audio/Tomato.mp3'
+    },
+    'ठ': {
+        emoji: '🔨',
+        word: 'ठसा',
+        english: 'Stamp/Impression',
+        // audioSrc: 'assets/audio/Tha.mp3' // Add if needed
+    },
     'ड': { emoji: '🐸', word: 'डोंगर', english: 'Mountain' },
     'ढ': { emoji: '☁️', word: 'ढग', english: 'Cloud' },
     'ण': { emoji: '❓', word: 'बाण', english: 'Arrow' },

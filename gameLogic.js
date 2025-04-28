@@ -4,7 +4,7 @@ import { addScore, resetScore, checkReward } from './pointsManager.js';
 // --- DOM Elements (Declare in module scope) ---
 let challengeDisplay, userInput, submitButton, feedbackText, emojiDisplay, puppyCage,
     cageStateText, nextButton, puppyIcon, levelNameDisplay,
-    challengeInstruction, repeatSoundButton, virtualKeyboardContainer;
+    challengeInstruction, repeatSoundButton, virtualKeyboardContainer, skipButton; // Add skipButton
 let levelButtons = []; // To store references to level buttons
 
 // --- Game State ---
@@ -15,10 +15,11 @@ let currentMode = currentLevel.mode;
 let currentChallenge = '';
 let isLocked = true;
 
-// --- Speech Synthesis (Declare BEFORE usage in initGame) ---
+// --- Speech Synthesis & Audio ---
 const synth = window.speechSynthesis;
 const speechSupported = synth && typeof SpeechSynthesisUtterance !== 'undefined';
 let marathiVoice = null; // Variable to store the found Marathi voice
+let currentAudioPlayer = null; // To manage audio playback
 
 // Function to find a Marathi voice
 function findMarathiVoice() {
@@ -58,23 +59,57 @@ function findMarathiVoice() {
     });
 }
 
-// --- Speech Synthesis Function ---
+// --- Speech Synthesis / Audio Playback Function ---
 function speakText(text, lang = 'mr-IN') {
+    // Stop any currently playing pre-recorded audio or TTS
+    if (currentAudioPlayer) {
+        currentAudioPlayer.pause();
+        currentAudioPlayer.currentTime = 0; // Reset time
+        currentAudioPlayer = null;
+    }
+    if (speechSupported) {
+        synth.cancel();
+    }
+
+    // Check if the text corresponds to a character with pre-recorded audio
+    const exampleData = characterExamples[text];
+    const audioSource = exampleData?.audioSrc; // Get audio path if available
+
+    if (audioSource) {
+        // Play pre-recorded audio
+        try {
+            console.log(`Playing pre-recorded audio: ${audioSource}`);
+            currentAudioPlayer = new Audio(audioSource);
+            currentAudioPlayer.play().catch(e => {
+                console.error(`Error playing audio ${audioSource}:`, e);
+                // Fallback to TTS if audio playback fails
+                speakViaTTS(text, lang);
+            });
+            // Clear the player reference once playback finishes
+            currentAudioPlayer.onended = () => { currentAudioPlayer = null; };
+        } catch (error) {
+            console.error(`Failed to create or play audio ${audioSource}:`, error);
+            speakViaTTS(text, lang); // Fallback to TTS on error
+        }
+    } else {
+        // Use TTS if no pre-recorded audio is specified or found
+        speakViaTTS(text, lang);
+    }
+}
+
+// Helper function for TTS fallback
+function speakViaTTS(text, lang) {
     if (!speechSupported || !text || text === ' ' || text === 'Backspace') return;
     try {
-        synth.cancel(); // Cancel previous speech first
         const utterance = new SpeechSynthesisUtterance(text);
-        utterance.lang = lang; // Set the language code
+        utterance.lang = lang;
         utterance.rate = 0.9;
 
-        // Use the found Marathi voice if available
         if (marathiVoice) {
             utterance.voice = marathiVoice;
-            console.log(`Using voice: ${marathiVoice.name} for lang: ${utterance.lang}`);
-        } else {
-            console.log(`Using default voice for lang: ${utterance.lang}`);
         }
-
+        // Clear player reference when TTS starts, in case audio failed mid-play
+        utterance.onstart = () => { currentAudioPlayer = null; };
         synth.speak(utterance);
     } catch (error) {
         console.error("Speech synthesis error:", error);
@@ -92,6 +127,12 @@ function updateVisuals() {
         emojiDisplay.textContent = ''; // Clear emoji when locked
         nextButton.style.display = 'none';
         puppyIcon.style.animation = 'bounce 1.5s infinite ease-in-out';
+        // Show skip button only if it's an audio challenge and locked
+        if (skipButton && currentMode === 'audio') {
+             skipButton.style.display = 'inline-block';
+        } else if (skipButton) {
+             skipButton.style.display = 'none';
+        }
     } else {
         puppyCage.classList.remove('cage-locked');
         puppyCage.classList.add('cage-unlocked');
@@ -101,6 +142,10 @@ function updateVisuals() {
         setTimeout(() => {
             if (!isLocked) puppyIcon.style.animation = 'none';
         }, 1000);
+        // Hide skip button when unlocked (Next button is shown)
+        if (skipButton) {
+            skipButton.style.display = 'none';
+        }
     }
 }
 
@@ -132,23 +177,27 @@ function checkAnswer(userAnswer) {
 
     if (userAnswer === currentChallenge) {
         const example = characterExamples[currentChallenge];
-        let successMessage = 'Correct! Puppy is free!';
-        let speechMessage = 'Correct!';
+        let successMessage = 'Correct! Puppy is free!'; // Default success text
+        let speechMessage = 'Correct!'; // Default speech if no example found
 
         if (example) {
             updateEmoji(example.emoji);
-            successMessage = `Correct! ${currentChallenge} for ${example.word} ${example.emoji}`;
+            // Update success message to include Marathi word, emoji, AND English meaning
+            successMessage = `Correct! ${currentChallenge} for ${example.word} ${example.emoji} (${example.english})`;
+            // Speech message already includes English
             speechMessage = `Correct! ${currentChallenge} for ${example.word}. Which means ${example.english}.`;
         } else {
             updateEmoji('✔️');
+            // Keep default messages if no example/meaning found
         }
 
-        updateFeedback(successMessage, '#a0d468');
+        // Update the feedback text displayed on screen
+        updateFeedback(successMessage, '#a0d468'); // Use the updated successMessage
         isLocked = false;
         addScore(1); // Add points
         checkReward(); // Check if a reward threshold is met
         speakText(speechMessage);
-        updateVisuals();
+        updateVisuals(); // updateVisuals will hide the skip button
     } else {
         updateFeedback(`Not quite! Try again. You typed: ${userAnswer}`, '#ed5565');
         updateEmoji('');
@@ -227,6 +276,15 @@ function setupEventListeners() {
         });
     }
 
+    // Add listener for skip button
+    if (skipButton) {
+        skipButton.addEventListener('click', () => {
+            console.log("Skip button clicked");
+            updateFeedback('Challenge skipped.', '#ffcc00'); // Optional feedback
+            selectNewChallenge(); // Load the next challenge directly
+        });
+    }
+
     // Add listeners for level navigation buttons
     levelButtons.forEach(button => {
         button.addEventListener('click', () => {
@@ -249,61 +307,64 @@ function selectNewChallenge() {
     const randomIndex = Math.floor(Math.random() * currentLevelContent.length);
     currentChallenge = currentLevelContent[randomIndex];
 
-    if (userInput) userInput.value = '';
-    updateFeedback('', '#ffeb99'); // Clear feedback text, reset color
+    // --- Features common to all levels ---
+    if (userInput) userInput.value = ''; // Clear input field
+    updateFeedback('', '#ffeb99'); // Clear visual feedback text
     updateEmoji(''); // Clear emoji display
-    isLocked = true;
+    isLocked = true; // Lock cage for new challenge
 
-    let instruction = 'Error loading instruction!'; // Default error instruction
-    let speechPrompt = '';
+    let instruction = 'Error loading instruction!'; // Default instruction text
+    let speechPrompt = ''; // Default audio prompt
 
-    // Update challenge display and instruction based on mode
+    // --- Mode-specific adjustments ---
     if (currentMode === 'visual') {
+        // Show visual character if applicable (but user asked to exclude this part)
         if (challengeDisplay) {
-            challengeDisplay.style.display = 'inline-block'; // Ensure it's visible
+            challengeDisplay.style.display = 'inline-block';
             challengeDisplay.textContent = currentChallenge;
-            console.log("Visual Mode: Displaying", currentChallenge);
-        } else {
-            console.error("Challenge display element not found!");
         }
+        // Set instruction text for visual mode
         instruction = "Type the character you see:";
+        // Set audio prompt for visual mode
         speechPrompt = `Type the character: ${currentChallenge}`;
+        // Ensure repeat button is visible
         if (repeatSoundButton) {
              repeatSoundButton.style.display = 'inline-block';
-             console.log("Repeat button should be visible");
-        } else {
-             console.error("Repeat sound button element not found!");
         }
+        // Ensure skip button is hidden in visual mode
+        if (skipButton) skipButton.style.display = 'none';
 
     } else { // audio mode
+        // Hide visual character display
         if (challengeDisplay) {
-            challengeDisplay.style.display = 'none'; // Ensure it's hidden
+            challengeDisplay.style.display = 'none';
             challengeDisplay.textContent = '';
-        } else {
-            console.error("Challenge display element not found!");
         }
+        // Set instruction text for audio mode
         instruction = "Listen and type the character:";
+        // Set audio prompt for audio mode (just the challenge)
         speechPrompt = currentChallenge;
+        // Ensure repeat button is visible
         if (repeatSoundButton) {
              repeatSoundButton.style.display = 'inline-block';
-             console.log("Repeat button should be visible");
-        } else {
-             console.error("Repeat sound button element not found!");
         }
+        // Skip button visibility will be handled by updateVisuals based on isLocked
     }
 
+    // --- Update UI elements common to all levels ---
+    // Update the instruction text element
     if (challengeInstruction) {
         challengeInstruction.textContent = instruction;
-        console.log("Instruction set to:", instruction);
-    } else {
-         console.error("Challenge instruction element not found!");
     }
-
+    // Update puppy cage visuals, next button visibility etc.
     updateVisuals();
+    // Speak the initial audio prompt
     setTimeout(() => {
         speakText(speechPrompt);
-        console.log("Attempting to speak:", speechPrompt);
     }, 100);
+
+    // NOTE: Virtual Keyboard, Text Input Field, Feedback (in checkAnswer),
+    // Points, and Rewards are handled elsewhere and apply to all levels.
 }
 
 export function loadLevel(levelKey) {
@@ -345,6 +406,7 @@ export async function initGame() { // Make initGame async
     challengeInstruction = document.getElementById('challenge-instruction');
     repeatSoundButton = document.getElementById('repeat-sound-button');
     virtualKeyboardContainer = document.getElementById('virtual-keyboard');
+    skipButton = document.getElementById('skip-button'); // Assign skip button
     levelButtons = document.querySelectorAll('#level-navigation .level-button');
 
     if (!virtualKeyboardContainer) console.error("Initialization Error: Virtual keyboard container ('virtual-keyboard') missing!");
@@ -352,6 +414,7 @@ export async function initGame() { // Make initGame async
     if (!challengeDisplay) console.error("Initialization Error: Challenge display element ('challenge-display') missing!");
     if (!userInput) console.error("Initialization Error: User input element missing!");
     if (!repeatSoundButton) console.error("Initialization Error: Repeat sound button element ('repeat-sound-button') missing!");
+    if (!skipButton) console.error("Initialization Error: Skip button element ('skip-button') missing!");
 
     if (!speechSupported) {
         console.warn("Browser does not support Speech Synthesis. Audio features disabled.");
