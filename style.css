@@ -10,29 +10,39 @@ body {
 }
 
 body.jungle-theme {
-    /* Background gradient simulating jungle depth */
-    background: linear-gradient(to bottom, #6db33f, #3e8e41); /* Shades of green */
-    color: #fff; /* White text for better contrast on dark background */
+    /* Background gradient simulating forest canopy/floor */
+    background: linear-gradient(to bottom, #87CEEB, #90EE90); /* Sky blue to light green */
+    color: #36454F; /* Darker text for better contrast on lighter background */
 }
 
 .container {
-    background-color: rgba(255, 255, 255, 0.15); /* Slightly transparent white background for content */
+    background-color: rgba(255, 255, 255, 0.6); /* Less transparent white for readability */
     padding: 30px;
     border-radius: 15px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2); /* Softer shadow */
     text-align: center;
     max-width: 800px; /* Limit width */
     width: 90%;
+    border: 1px solid rgba(54, 69, 79, 0.2); /* Subtle border */
 }
 
 h1 {
-    color: #ffcc00; /* Bright yellow for title */
+    color: #D2691E; /* Chocolate/Brown color for title */
     margin-bottom: 10px;
     font-size: 2.5em;
     display: flex; /* Align icon with text */
     align-items: center;
     justify-content: center;
     gap: 10px;
+}
+
+/* Style for the level name display */
+#level-name {
+    color: #8B4513; /* Saddle Brown */
+    font-size: 1.5em;
+    margin-top: 0; /* Adjusted margin */
+    margin-bottom: 15px;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
 }
 
 #puppy-icon {
@@ -63,16 +73,16 @@ h1 {
 p {
     font-size: 1.1em;
     margin-bottom: 20px;
-    color: #eee; /* Lighter text color */
+    color: #4F4F4F; /* Dark grey for paragraph text */
 }
 
 #game-area {
-    background-color: #fff;
+    background-color: rgba(245, 245, 220, 0.5); /* Beige transparent */
     padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    border-radius: 10px; /* Consistent rounding */
     margin-top: 20px;
     text-align: center;
+    border: 1px solid rgba(139, 69, 19, 0.3); /* Light brown border */
 }
 
 #feedback {
@@ -85,8 +95,9 @@ p {
 
 #feedback-section {
     margin-top: 15px;
-    min-height: 60px; /* Adjust height to accommodate text and emoji */
+    min-height: 80px; /* Increased height for text and large emoji */
     position: relative; /* For potential absolute positioning inside if needed */
+    color: #2E8B57; /* Sea Green for default feedback text */
 }
 
 #feedback-text {
@@ -94,6 +105,7 @@ p {
     min-height: 1.5em; /* Prevent layout shift */
     font-weight: bold;
     font-size: 1.2em;
+    color: inherit; /* Inherit color from parent */
 }
 
 #emoji-display {
@@ -113,43 +125,43 @@ p {
 }
 
 #challenge-section, #input-section, #feedback-section, #visual-section {
-    margin-bottom: 20px;
+    margin-bottom: 25px; /* Increased spacing between sections */
+}
+#visual-section {
+     margin-bottom: 10px; /* Less space after the cage */
 }
 
 #challenge-section p {
     font-size: 1.4em; /* Slightly larger */
     margin-bottom: 10px;
-    color: #FFFF00; /* Bright Yellow */
+    color: #2E8B57; /* Sea Green */
     font-weight: bold;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7); /* Add shadow for contrast */
+    text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.5); /* Lighter shadow */
     display: flex; /* Align text and button */
     align-items: center;
     justify-content: center;
     gap: 10px; /* Space between text and button */
+    min-height: 1.5em; /* Prevent layout jump */
 }
 
 #challenge-display {
-    /* HIDE the visual character display */
-    display: none;
-
-    /* Keep some old styles commented out or remove if no longer needed */
-    /* font-size: 4em; */
-    /* font-family: 'Noto Sans Devanagari', sans-serif; */
-    /* margin-bottom: 20px; */
-    /* color: #FFFFFF; */
-    /* background-color: rgba(0, 0, 0, 0.2); */
-    /* padding: 10px 20px; */
-    /* border-radius: 10px; */
-    /* display: inline-block; */
-    /* min-height: 1.2em; */
-    /* text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); */
+    font-size: 4em;
+    font-family: 'Noto Sans Devanagari', sans-serif;
+    margin-bottom: 20px;
+    color: #36454F; /* Dark text color */
+    background-color: rgba(255, 255, 255, 0.5); /* Semi-transparent white */
+    padding: 10px 20px;
+    border-radius: 10px;
+    display: inline-block; /* Use inline-block when shown */
+    min-height: 1.2em;
+    text-shadow: none; /* Remove shadow if background is light */
 }
 
 #repeat-sound-button {
     background: none;
     border: none;
     font-size: 1.5em; /* Make speaker icon larger */
-    color: #ffcc00; /* Match title color */
+    color: #D2691E; /* Chocolate/Brown */
     cursor: pointer;
     padding: 0 5px;
     vertical-align: middle;
@@ -188,7 +200,7 @@ p {
     padding: 12px 25px;
     font-size: 1.2em;
     font-weight: bold;
-    background-color: #ff8c00; /* Bright orange button */
+    background-color: #FF7F50; /* Coral */
     color: white;
     border: none;
     border-radius: 20px; /* Rounded corners */
@@ -198,7 +210,7 @@ p {
 }
 
 #submit-button:hover {
-    background-color: #e67e00; /* Darker orange on hover */
+    background-color: #E9967A; /* Dark Salmon */
     transform: scale(1.05); /* Slightly enlarge on hover */
 }
 
@@ -207,11 +219,15 @@ p {
 }
 
 #user-input {
-    padding: 10px;
-    font-size: 1em;
-    margin-right: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+    padding: 12px 15px;
+    font-size: 1.1em;
+    border: 2px solid #8FBC8F; /* Dark Sea Green border */
+    border-radius: 20px; /* Rounded corners */
+    background-color: #fff;
+    color: #36454F; /* Dark text */
+    width: clamp(200px, 60%, 400px); /* Responsive width */
+    font-family: 'Noto Sans Devanagari', sans-serif; /* Font for input */
+    margin-right: 0; /* Remove margin if set previously */
 }
 
 #user-input.shake {
@@ -235,25 +251,20 @@ button:hover {
     background-color: #45a049;
 }
 
-#feedback-text {
-    font-weight: bold;
-    min-height: 1.2em; /* Prevent layout shifts */
-}
-
 .feedback-correct {
-    color: green;
+    color: #3CB371; /* Medium Sea Green */
 }
 
 .feedback-incorrect {
-    color: red;
+    color: #DC143C; /* Crimson */
 }
 
 #puppy-cage {
-    border: 3px solid #8B4513; /* Brown border */
+    border: 3px solid #A0522D; /* Sienna border */
     padding: 20px;
     display: inline-block;
     border-radius: 5px;
-    background-color: #eee;
+    background-color: rgba(210, 180, 140, 0.4); /* Tan transparent */
     position: relative;
     transition: background-color 0.5s ease, border-color 0.5s ease; /* Smooth transition */
     min-height: 100px; /* Ensure space for the puppy image */
@@ -300,13 +311,13 @@ button:hover {
 }
 
 #puppy-cage.cage-locked {
-    border: 5px dashed #ed5565; /* Reddish dashed border for locked */
-    background-color: rgba(237, 85, 101, 0.2); /* Light red background */
+    border: 5px dashed #DC143C; /* Crimson dashed border */
+    background-color: rgba(220, 20, 60, 0.15); /* Light crimson background */
 }
 
 #puppy-cage.cage-unlocked {
-    border: 5px solid #a0d468; /* Green solid border for unlocked */
-    background-color: rgba(160, 212, 104, 0.3); /* Light green background */
+    border: 5px solid #3CB371; /* Medium Sea Green solid border */
+    background-color: rgba(60, 179, 113, 0.2); /* Light green background */
 }
 
 #puppy-cage.cage-locked #puppy {
@@ -325,7 +336,7 @@ button:hover {
     transform: translateX(-50%); /* Center horizontally */
     width: 100%; /* Ensure it takes full width for centering */
     text-align: center;
-    background-color: rgba(0,0,0,0.5);
+    background-color: rgba(85,107,47,0.7); /* Dark Olive Green background */
     color: white;
     padding: 2px 5px;
     font-size: 0.8em;
@@ -337,11 +348,11 @@ button:hover {
 
 #next-button {
     margin-top: 10px;
-    background-color: #4fc1e9; /* Light blue */
+    background-color: #90EE90; /* Light Green */
     padding: 10px 20px;
     font-size: 1.1em;
     font-weight: bold;
-    color: white;
+    color: #36454F; /* Dark text */
     border: none;
     border-radius: 20px;
     cursor: pointer;
@@ -351,7 +362,7 @@ button:hover {
 }
 
 #next-button:hover {
-    background-color: #3bafda;
+    background-color: #7CFC00; /* Lawn Green */
     transform: scale(1.05);
 }
 
@@ -362,13 +373,20 @@ button:hover {
 #virtual-keyboard {
     margin-top: 20px;
     padding: 15px;
-    border: none; /* Remove border */
+    border: 1px solid red; /* TEMPORARY: Add red border for visibility check */
     border-radius: 10px;
-    background-color: rgba(0, 0, 0, 0.1); /* Darker transparent background */
+    background-color: rgba(139, 69, 19, 0.3); /* Lighter brown background */
     display: flex;
     flex-wrap: wrap;
-    gap: 8px; /* Spacing between buttons */
+    gap: 8px;
     justify-content: center;
+    min-height: 50px;
+    position: relative; /* Ensure positioning context */
+    z-index: 10; /* Ensure it's not hidden behind other elements */
+    visibility: visible;
+    opacity: 1;
+    width: 100%; /* Ensure it takes up space */
+    box-sizing: border-box; /* Include padding/border in width */
 }
 
 #virtual-keyboard button {
@@ -377,8 +395,8 @@ button:hover {
     font-family: 'Noto Sans Devanagari', sans-serif; /* Ensure Devanagari font */
     cursor: pointer;
     border: none; /* Remove border */
-    background-color: #a0d468; /* Leaf green buttons */
-    color: #3a630e; /* Dark green text */
+    background-color: #ADD8E6; /* Light Blue */
+    color: #191970; /* Midnight Blue text */
     border-radius: 8px; /* Rounded corners */
     min-width: 45px;
     text-align: center;
@@ -387,12 +405,12 @@ button:hover {
 }
 
 #virtual-keyboard button:hover {
-    background-color: #8cc152; /* Lighter green on hover */
+    background-color: #87CEEB; /* Sky Blue */
     transform: translateY(-2px); /* Lift button slightly */
 }
 
 #virtual-keyboard button:active {
-    background-color: #7ab03f; /* Darker green when clicked */
+    background-color: #6495ED; /* Cornflower Blue */
     transform: translateY(0); /* Return to original position */
 }
 
@@ -400,16 +418,63 @@ button:hover {
 #virtual-keyboard button:last-child, /* Backspace */
 #virtual-keyboard button:nth-last-child(2) /* Space */
 {
-    background-color: #f6bb42; /* Yellowish for special keys */
-    color: #8c6f1d;
+    background-color: #F0E68C; /* Khaki */
+    color: #8B4513; /* Saddle Brown */
 }
 #virtual-keyboard button:last-child:hover,
 #virtual-keyboard button:nth-last-child(2):hover {
-     background-color: #f9c966;
+     background-color: #EEE8AA; /* Pale Goldenrod */
 }
 #virtual-keyboard button:last-child:active,
 #virtual-keyboard button:nth-last-child(2):active {
-     background-color: #e4a82b;
+     background-color: #DAA520; /* Goldenrod */
+}
+
+/* Navigation Styles */
+#level-navigation {
+    background-color: rgba(139, 69, 19, 0.1); /* Light brown transparent background */
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+#level-navigation h2 {
+    margin-top: 0;
+    margin-bottom: 15px;
+    color: #8B4513; /* Saddle Brown */
+    font-size: 1.3em;
+}
+
+.level-button {
+    padding: 8px 15px;
+    font-size: 0.9em;
+    font-weight: bold;
+    background-color: #5F9EA0; /* Cadet Blue */
+    color: white;
+    border: none;
+    border-radius: 15px; /* Rounded */
+    cursor: pointer;
+    transition: transform 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+    font-family: 'Baloo 2', cursive;
+    margin: 5px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.level-button:hover {
+    background-color: #4682B4; /* Steel Blue */
+    transform: scale(1.05);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+}
+
+.level-button:active {
+    transform: scale(0.98);
+}
+
+.level-button.active {
+    background-color: #FF7F50; /* Coral for active level */
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.3);
+    transform: scale(1.02);
 }
 
 /* Example Animations (add these at the end or with other keyframes) */
